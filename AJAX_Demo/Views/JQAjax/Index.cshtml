@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+</head>
+<body>
+    <div> 
+        <span>Enter first no:</span>@Html.TextBox("txtFirstNo")<br />
+        <span>Enter second no:</span>@Html.TextBox("txtSecondNo")<br />
+        <span id="lblResult"></span>
+        <button type="button" onclick="doSum();">Show</button>
+    </div>
+
+    <script>
+
+        function doSum() {
+            var v1 = $("#txtFirstNo").val();
+            var v2 = $("#txtSecondNo").val();
+
+            @*$.ajax({
+                url: '@Url.Action("Index", "JQAjax")',
+                method: "POST",
+                cache: false,
+                data: {txtFirstNo: v1, txtSecondNo: v2}
+            }).done(function (data) {
+                $("#lblResult").text(data);
+            });*@
+
+            $.post('@Url.Action("Index", "JQAjax")',
+                { txtFirstNo: v1, txtSecondNo: v2 })
+                .done(function (data) {
+                $("lblResult").text(data);
+            });
+        }
+
+    </script>
+</body>
+</html>
